@@ -1,11 +1,4 @@
 -- Written by Todd Frech, 2021 in MySQL, originally Microsoft Access
--- GOAL OF THIS TOOL:
--- 1. Isolate customer records that had vacated all of their spaces prior to the Cut Off Date and purge all related transaction records
--- 2. Do not affect any financial reports for the time range following the Cut Off Date
--- ITEMS TO CONSIDER
--- 1. Accounts can record transactions following their End Date, so those must be identified and filtered out. These include "Vacant Income," "Reversal," and "Uncollected".
--- 2. Accounts must have had all associated spaces vacated on the Cut Off Date
-
 
 CREATE TABLE PurgeParameters (SiteID Text(3), CutOff Date);
 
@@ -32,7 +25,6 @@ CREATE TABLE ResultsCheck (
     );
 
 -- Building the report of accounts to be purged
-
 INSERT INTO AccountsToPurgeFinalReport
 WITH 
 	-- Select all vacant accounts
@@ -111,7 +103,7 @@ AND Accounts.Account IN
 ORDER BY Accounts.Account, Spaces.Space;
 
 
-
+-- This query can be query to validate the final result set prior to removing any data 
 SELECT Accounts.SiteID
     , Accounts.Account
     , Accounts.FirstName
@@ -140,3 +132,4 @@ LEFT JOIN AccountsToPurgeFinalReport
 JOIN LookupStatus 
 	ON CustAccounts.CustAccountsStatus = LookupStatus.ID
 ORDER BY Accounts.Account, Spaces.Space;
+-- The account records are purged from the source tables and all transaction-related tables based on the Account column, which are not shown. 
