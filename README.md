@@ -1,6 +1,8 @@
 # purgescript
-# Written by Todd Frech, 2021 in MySQL, originally Microsoft Access
-
+Written by Todd Frech, 2021 in MySQL, originally Microsoft Access
+<br>
+<br>
+<br>
 <b>Problem:</b> The existing purge tool for an Access-based accounting system removed more records than it should have, affecting the accuracy of clients' financial reports.
 <br>
 <b>Goal:</b> To build a new tool using SQL that accurately identifies accounts and all related transactional records that qualify to be purged based on an input parameter. For my own practice, I ported the tool to MySQL as well to utilize more modern functions, like Common Table Expressions to run the data through multiple filters in a single query. 
