@@ -3,9 +3,8 @@
 -- 1. Isolate customer records that had vacated all of their spaces prior to the Cut Off Date and purge all related transaction records
 -- 2. Do not affect any financial reports for the time range following the Cut Off Date
 -- ITEMS TO CONSIDER
--- 1. Accounts can record transactions following their End Date, so those must be identified and filtered out
+-- 1. Accounts can record transactions following their End Date, so those must be identified and filtered out. These include "Vacant Income," "Reversal," and "Uncollected".
 -- 2. Accounts must have had all associated spaces vacated on the Cut Off Date
--- 3. 
 
 
 CREATE TABLE PurgeParameters (SiteID Text(3), CutOff Date);
@@ -74,7 +73,7 @@ WITH
 			AND AccountsFiltered.Account = VacantAccountsAfter.Account
 		WHERE VacantAccountsAfter.Account IS NULL 
 			AND VacantAccountsAfter.SiteID IS NULL)
-	-- Select all accounts that registered a "Vacant Income," "Reversal," or "Uncollected" transaction AFTER the Cut Off Date
+	-- Select all accounts that registered a transaction AFTER the Cut Off Date
 	, VUIAccounts AS (
 		SELECT DISTINCT Account, SiteID
 		FROM Trax INNER JOIN TraxDetail ON Trax.TraxID = TraxDetail.TraxID
