@@ -103,7 +103,7 @@ AND Accounts.Account IN
 ORDER BY Accounts.Account, Spaces.Space;
 
 
--- This query can be query to validate the final result set prior to removing any data 
+-- This query can be used to validate the final result set prior to removing any data 
 SELECT Accounts.SiteID
     , Accounts.Account
     , Accounts.FirstName
